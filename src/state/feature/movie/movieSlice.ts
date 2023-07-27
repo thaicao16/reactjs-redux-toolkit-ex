@@ -23,7 +23,8 @@ export const movieSlice = createSlice({
       })
       .addCase(fetchMovies.fulfilled, (state, action) => {
         state.status = "idle";
-        state.movie = action.payload;
+        console.log("fetchMovies fulfilled= ", action.payload);
+        state.searchResult = action.payload;
       })
 
       .addCase(fetchMovies.rejected, (state) => {
@@ -33,5 +34,5 @@ export const movieSlice = createSlice({
 });
 
 export const {} = movieSlice.actions;
-export const getMovie = (state: MovieSliceState) => state.movie;
+export const getMovies = (state: any) => state.movieListData;
 export default movieSlice.reducer;

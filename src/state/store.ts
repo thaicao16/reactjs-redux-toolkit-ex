@@ -5,7 +5,7 @@ import storeReducer from "./feature/movie/movieSlice";
 
 export const store = configureStore({
   reducer: {
-    movies: storeReducer,
+    movieListData: storeReducer,
   },
 });
 
