@@ -1,7 +1,8 @@
 import { Card, CardContent, Grid, Typography } from "@mui/material";
 import Box from "@mui/material/Box/Box";
 import { useSelector } from "react-redux";
-import { getMovies } from "../state/feature/movie/movieSlice";
+import { Link } from "react-router-dom";
+import { getMovies } from "../state/feature/movie/movieListSlice";
 import { Movie } from "../state/feature/movie/movieTypes";
 
 export default function MovieList() {
@@ -22,46 +23,48 @@ export default function MovieList() {
           >
             {movieDataList?.map((movie: Movie) => (
               <Grid item xs={12} sm={6} md={4} lg={3} key={movie.imdbID}>
-                <Box>
-                  <Card
-                    sx={{
-                      display: "flex",
-                      borderRadius: "8px",
-                      p: "12px",
-                      m: "8px",
-                    }}
-                  >
-                    <img
-                      src={`${movie.Poster}`}
-                      srcSet={`${movie.Poster}`}
-                      width="135px"
-                      height="240px"
-                      alt={movie.Title}
-                      loading="lazy"
-                    />
-
-                    <CardContent
+                <Link to={`/movie/${movie.imdbID}`}>
+                  <Box>
+                    <Card
                       sx={{
-                        m: 0,
-                        p: 0.5,
+                        display: "flex",
+                        borderRadius: "8px",
+                        p: "12px",
+                        m: "8px",
                       }}
                     >
-                      <Typography
-                        variant="h6"
-                        component="h6"
-                        title={movie.Title}
+                      <img
+                        src={`${movie.Poster}`}
+                        srcSet={`${movie.Poster}`}
+                        width="135px"
+                        height="240px"
+                        alt={movie.Title}
+                        loading="lazy"
+                      />
+
+                      <CardContent
                         sx={{
-                          textAlign: "left",
+                          m: 0,
+                          p: 0.5,
                         }}
                       >
-                        {movie.Title}
-                      </Typography>
-                      <Typography variant="body2" color="text.secondary">
-                        {movie.Year}
-                      </Typography>
-                    </CardContent>
-                  </Card>
-                </Box>
+                        <Typography
+                          variant="h6"
+                          component="h6"
+                          title={movie.Title}
+                          sx={{
+                            textAlign: "left",
+                          }}
+                        >
+                          {movie.Title}
+                        </Typography>
+                        <Typography variant="body2" color="text.secondary">
+                          {movie.Year}
+                        </Typography>
+                      </CardContent>
+                    </Card>
+                  </Box>
+                </Link>
               </Grid>
             ))}
           </Grid>

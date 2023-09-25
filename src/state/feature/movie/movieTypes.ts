@@ -43,6 +43,11 @@ export interface MovieDetails {
 
 export interface MovieSliceState {
   searchResult: MoviesResponseType;
+  // movie: MovieDetails | null;
+  status: "idle" | "loading";
+}
+
+export interface MovieItemSliceState {
   movie: MovieDetails | null;
   status: "idle" | "loading";
 }

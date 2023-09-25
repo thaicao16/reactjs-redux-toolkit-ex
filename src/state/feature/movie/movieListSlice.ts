@@ -8,11 +8,10 @@ const initialState: MovieSliceState = {
     totalResults: 0,
     Response: "False",
   },
-  movie: null,
   status: "idle",
 };
 
-export const movieSlice = createSlice({
+export const movieListSlice = createSlice({
   name: "movie",
   initialState,
   reducers: {},
@@ -33,6 +32,6 @@ export const movieSlice = createSlice({
   },
 });
 
-export const {} = movieSlice.actions;
+export const {} = movieListSlice.actions;
 export const getMovies = (state: any) => state.movieListData;
-export default movieSlice.reducer;
+export default movieListSlice.reducer;

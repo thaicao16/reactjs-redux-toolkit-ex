@@ -1,41 +1,100 @@
 import Box from "@mui/material/Box/Box";
-import { AsyncThunkAction, Dispatch, AnyAction } from "@reduxjs/toolkit";
 import { useEffect } from "react";
-import { fetchMovies } from "../../api/movie/fetchMovies";
+import { useParams } from "react-router-dom";
+import { fetchMovieById } from "../../api/movie/fetchMovieById";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch } from "../../state/store";
+import { Grid, Typography } from "@mui/material";
+import { getMovie } from "../../state/feature/movie/movieItemSlice";
 
 export default function MovieScreen() {
+  const dispatch = useDispatch<AppDispatch>();
+  const { movieId } = useParams();
+  const movieData = useSelector(getMovie);
+  console.log("MovieScreen movieId= ", movieId);
+  console.log("MovieScreen movieData= ", movieData);
   useEffect(() => {
-    console.log("MovieScreen fetchMovies");
-    dispatch(fetchMovies("batman"));
-  }, []);
+    console.log("useEffect movieId= ", movieId);
+    if (movieId) {
+      dispatch(fetchMovieById(movieId));
+    }
+  }, [movieId]);
+
   return (
-    <Box
-      sx={{
-        display: "flex",
-        width: "100%",
-        height: "100vh",
-        flexDirection: "column",
-      }}
-    >
-      Movie Page
+    <Box>
+      {movieData.status === "loading" ? (
+        <Box>Loading ...</Box>
+      ) : (
+        <>
+          {movieData.movie && (
+            <Grid
+              container
+              flexDirection={"row"}
+              flexWrap="nowrap"
+              sx={{
+                gap: 8,
+              }}
+            >
+              <Grid
+                item
+                sx={{
+                  xs: 12,
+                  sm: 12,
+                  md: 4,
+                  lg: 3,
+                }}
+              >
+                <img
+                  src={movieData.movie?.Poster}
+                  alt={movieData.movie?.Title}
+                />
+              </Grid>
+              <Grid
+                item
+                sx={{
+                  xs: 12,
+                  sm: 12,
+                  md: 4,
+                  lg: 3,
+                }}
+              >
+                <Typography
+                  align="left"
+                  variant="h3"
+                  component="h2"
+                  gutterBottom
+                >
+                  {movieData.movie?.Title}
+                </Typography>
+                <Typography
+                  align="left"
+                  variant="h5"
+                  component="h5"
+                  gutterBottom
+                >
+                  Year: {movieData.movie?.Year}
+                </Typography>
+                <Typography
+                  align="left"
+                  variant="body1"
+                  component="p"
+                  gutterBottom
+                >
+                  {movieData?.Plot}
+                </Typography>
+                <Typography
+                  align="left"
+                  variant="h6"
+                  component="h6"
+                  gutterBottom
+                >
+                  Director: {movieData.movie?.Director}
+                </Typography>
+              </Grid>
+            </Grid>
+          )}
+        </>
+      )}
     </Box>
   );
-}
-function dispatch(
-  arg0: AsyncThunkAction<
-    any,
-    String,
-    {
-      state?: unknown;
-      dispatch?: Dispatch<AnyAction> | undefined;
-      extra?: unknown;
-      rejectValue?: unknown;
-      serializedErrorType?: unknown;
-      pendingMeta?: unknown;
-      fulfilledMeta?: unknown;
-      rejectedMeta?: unknown;
-    }
-  >
-) {
-  throw new Error("Function not implemented.");
 }
