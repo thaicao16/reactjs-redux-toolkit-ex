@@ -1,8 +1,8 @@
 import React, { useMemo } from "react";
-import HomeScreen from "./features/home/Home";
 import "./App.css";
-import Movie from "./features/movie/Movie";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import HomeScreen from "./redux-saga/features/home/HomeSaga";
+import Movie from "./redux-saga/features/movie/MovieSaga";
 
 const App = () => {
   return (

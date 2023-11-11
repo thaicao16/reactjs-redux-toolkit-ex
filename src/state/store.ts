@@ -4,7 +4,7 @@ import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 import movieListReducer from "./feature/movie/movieListSlice";
 import movieItemReducer from "./feature/movie/movieItemSlice";
 
-export const store = configureStore({
+const store = configureStore({
   reducer: {
     movieListData: movieListReducer,
     movieData: movieItemReducer,

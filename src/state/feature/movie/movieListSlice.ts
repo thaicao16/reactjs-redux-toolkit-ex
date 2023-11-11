@@ -34,4 +34,5 @@ export const movieListSlice = createSlice({
 
 export const {} = movieListSlice.actions;
 export const getMovies = (state: any) => state.movieListData;
+
 export default movieListSlice.reducer;
